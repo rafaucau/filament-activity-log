@@ -32,7 +32,9 @@
                     @foreach ($groupEntries as $i => $entry)
                         <li class="relative" wire:key="timeline-entry-{{ $entry->id }}">
                             @if ($i !== count($groupEntries) - 1)
-                                <span aria-hidden="true" class="absolute left-[22px] top-9 bottom-0 w-px bg-gray-200 dark:bg-white/10"></span>
+                                <span aria-hidden="true" class="absolute left-2 top-9 bottom-0 flex w-7 justify-center">
+                                    <span class="w-px bg-gray-200 dark:bg-white/10"></span>
+                                </span>
                             @endif
                             {!! $registry->resolve($entry)->render($entry) !!}
                         </li>
@@ -45,7 +47,9 @@
             @foreach ($entries as $i => $entry)
                 <li class="relative" wire:key="timeline-entry-{{ $entry->id }}">
                     @if ($i !== count($entries) - 1)
-                        <span aria-hidden="true" class="absolute left-[22px] top-9 bottom-0 w-px bg-gray-200 dark:bg-white/10"></span>
+                        <span aria-hidden="true" class="absolute left-2 top-9 bottom-0 flex w-7 justify-center">
+                            <span class="w-px bg-gray-200 dark:bg-white/10"></span>
+                        </span>
                     @endif
                     {!! $registry->resolve($entry)->render($entry) !!}
                 </li>
