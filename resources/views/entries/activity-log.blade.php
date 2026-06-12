@@ -11,7 +11,7 @@
     data-type="{{ $entry->type }}"
     data-event="{{ $entry->event }}"
     @class([
-        'group grid grid-cols-[28px_1fr_auto] items-start gap-x-3 rounded-md px-2 py-2 transition',
+        'group relative grid grid-cols-[1fr_auto] items-start gap-x-3 rounded-md py-2 pe-2 ps-6 transition',
         'cursor-pointer hover:bg-gray-50/60 dark:hover:bg-white/[0.03]' => $summary->hasDiff,
     ])
     @if ($summary->hasDiff)
@@ -23,11 +23,9 @@
         @keydown.space.prevent="open = !open"
     @endif
 >
-    <div class="flex justify-center pt-0.5">
-        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
-            <x-filament::icon :icon="$icon" class="h-3.5 w-3.5" />
-        </span>
-    </div>
+    <span class="absolute -start-3 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-4 ring-white dark:bg-white/5 dark:text-gray-300 dark:ring-gray-900">
+        <x-filament::icon :icon="$icon" class="h-3.5 w-3.5" />
+    </span>
 
     <div class="min-w-0">
         <p class="text-[13px] leading-5 text-gray-700 dark:text-gray-300">
