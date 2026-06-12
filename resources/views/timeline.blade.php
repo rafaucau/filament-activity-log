@@ -28,9 +28,12 @@
                         />
                     </button>
                 </header>
-                <ol x-show="open" x-collapse class="relative ms-3 flex flex-col border-s border-gray-200 dark:border-white/10">
-                    @foreach ($groupEntries as $entry)
-                        <li wire:key="timeline-entry-{{ $entry->id }}">
+                <ol x-show="open" x-collapse class="flex flex-col">
+                    @foreach ($groupEntries as $i => $entry)
+                        <li class="relative" wire:key="timeline-entry-{{ $entry->id }}">
+                            @if ($i !== count($groupEntries) - 1)
+                                <span aria-hidden="true" class="absolute left-[22px] top-9 bottom-0 w-px bg-gray-200 dark:bg-white/10"></span>
+                            @endif
                             {!! $registry->resolve($entry)->render($entry) !!}
                         </li>
                     @endforeach
@@ -38,9 +41,12 @@
             </section>
         @endforeach
     @else
-        <ol class="relative ms-3 flex flex-col border-s border-gray-200 dark:border-white/10">
-            @foreach ($entries as $entry)
-                <li wire:key="timeline-entry-{{ $entry->id }}">
+        <ol class="flex flex-col">
+            @foreach ($entries as $i => $entry)
+                <li class="relative" wire:key="timeline-entry-{{ $entry->id }}">
+                    @if ($i !== count($entries) - 1)
+                        <span aria-hidden="true" class="absolute left-[22px] top-9 bottom-0 w-px bg-gray-200 dark:bg-white/10"></span>
+                    @endif
                     {!! $registry->resolve($entry)->render($entry) !!}
                 </li>
             @endforeach
