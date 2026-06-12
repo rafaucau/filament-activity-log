@@ -13,11 +13,21 @@ use Spatie\Activitylog\Models\Activity as ActivityModel;
 
 final class ActivityLogSource extends AbstractTimelineSource
 {
+    /**
+     * Get the activity model class from config or use default
+     */
+    private function getActivityModelClass(): string
+    {
+        return config('activity-log.activity_model', ActivityModel::class);
+    }
+
     public function resolve(Model $subject, Window $window): iterable
     {
         throw_if($subject->getKey() === null, DomainException::class, 'ActivityLogSource cannot resolve entries for an unsaved subject.');
 
-        $query = ActivityModel::query()
+        $modelClass = $this->getActivityModelClass();
+        
+        $query = $modelClass::query()
             ->with(['causer', 'subject'])
             ->where('subject_type', $subject->getMorphClass())
             ->where('subject_id', $subject->getKey())->latest()

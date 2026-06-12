@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 return [
+    'activity_model' => \Spatie\Activitylog\Models\Activity::class,
+    
     'default_per_page' => 20,
     'pagination_buffer' => 2,
     'deduplicate_by_default' => true,
