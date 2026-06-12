@@ -14,7 +14,7 @@
     data-type="{{ $entry->type }}"
     data-event="{{ $event }}"
 >
-    <span class="absolute -start-3 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-4 ring-white dark:bg-white/5 dark:text-gray-300 dark:ring-gray-900">
+    <span class="absolute -start-3 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-4 ring-white dark:bg-gray-800 dark:text-gray-300 dark:ring-gray-900">
         <x-filament::icon icon="ri-circle-line" class="h-3.5 w-3.5" />
     </span>
 
