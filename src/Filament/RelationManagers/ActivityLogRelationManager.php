@@ -31,6 +31,8 @@ final class ActivityLogRelationManager extends RelationManager
 
     public static int $perPage = 20;
 
+    public static ?string $emptyState = null;
+
     public function content(Schema $schema): Schema
     {
         $owner = $this->getOwnerRecord();
@@ -44,6 +46,7 @@ final class ActivityLogRelationManager extends RelationManager
                         'groupByDate' => self::$groupByDate,
                         'perPage' => self::$perPage,
                         'infiniteScroll' => self::$infiniteScroll,
+                        'emptyState' => static::$emptyState ?? (string) __('activity-log::messages.empty_state'),
                     ])->key('activity-log-relation-manager-'.$owner->getKey()),
                 ]),
         ]);

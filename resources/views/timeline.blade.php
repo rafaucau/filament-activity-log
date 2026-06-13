@@ -1,6 +1,11 @@
 <div class="flex flex-col gap-6">
     @if ($entries->isEmpty())
-        <p class="text-sm text-gray-500 dark:text-gray-400">{{ $emptyState }}</p>
+        <div class="flex flex-col items-center justify-center gap-3 py-10 text-center">
+            <div class="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 dark:bg-white/5 dark:text-gray-500">
+                <x-filament::icon icon="ri-history-line" class="h-5 w-5" />
+            </div>
+            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ $emptyState }}</p>
+        </div>
     @elseif ($grouped !== null)
         @foreach ($grouped as $label => $groupEntries)
             <section x-data="{ open: true }" wire:key="timeline-group-{{ $label }}">
