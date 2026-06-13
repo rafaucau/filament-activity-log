@@ -22,7 +22,7 @@
                         @click="open = !open"
                     >
                         <x-filament::icon
-                            icon="ri-arrow-down-s-line"
+                            icon="heroicon-m-chevron-down"
                             class="h-4 w-4 transition-transform"
                             x-bind:class="open ? '' : '-rotate-90'"
                         />
@@ -79,7 +79,7 @@
                     wire:click="loadMore"
                     wire:loading.attr="disabled"
                     wire:target="loadMore"
-                    icon="ri-arrow-down-line"
+                    icon="heroicon-m-arrow-down"
                 >
                     <span wire:loading.remove wire:target="loadMore">{{ __('activity-log::messages.load_more') }}</span>
                     <span wire:loading wire:target="loadMore">{{ __('activity-log::messages.loading') }}</span>

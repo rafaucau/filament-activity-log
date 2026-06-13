@@ -14,10 +14,10 @@ enum ActivityLogOperation: string
     public function icon(): string
     {
         return match ($this) {
-            self::Created => 'ri-add-line',
-            self::Deleted => 'ri-delete-bin-line',
-            self::Restored => 'ri-arrow-go-back-line',
-            self::Updated => 'ri-edit-line',
+            self::Created => 'heroicon-o-plus',
+            self::Deleted => 'heroicon-o-trash',
+            self::Restored => 'heroicon-o-arrow-uturn-left',
+            self::Updated => 'heroicon-o-pencil-square',
         };
     }
 
