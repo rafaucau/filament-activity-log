@@ -7,10 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-13
+
 ### Added
 
+- Configurable activity model via the `activity_model` config key in `activity-log.php`; `ActivityLogSource` and `RelatedActivityLogSource` now resolve the model from config instead of hardcoding it
+- Laravel 13 support (`illuminate/* ^13.0`)
 - Versioned documentation site (Nuxt Content + Docus) published to GitHub Pages
 - Community files: `LICENSE.md`, `CHANGELOG.md`, `.github/CONTRIBUTING.md`, `.github/SECURITY.md`
+
+### Changed
+
+- Reworked the timeline as a continuous border rail with connector lines centered on entry icons for even, symmetric spacing
+
+### Fixed
+
+- `RelatedActivityLogSource` now emits `type='related_activity_log'` so related entries are identifiable
+- Removed the dead `date_groups` config key (#10)
+- Scoped `TimelineCache::forget()` to a single subject so it no longer over-invalidates other subjects' caches (#12)
+- Capped the related-row fetch in `RelatedActivityLogSource` to prevent unbounded queries (#14)
+- Removed the orphan root-namespace `ActivityLogPlugin`
 
 ## [1.0.0] - Initial release
 
