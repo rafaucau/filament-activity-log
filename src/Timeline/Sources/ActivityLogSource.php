@@ -13,14 +13,6 @@ use Spatie\Activitylog\Models\Activity as ActivityModel;
 
 final class ActivityLogSource extends AbstractTimelineSource
 {
-    /**
-     * Get the activity model class from config or use default
-     */
-    private function getActivityModelClass(): string
-    {
-        return config('activity-log.activity_model', ActivityModel::class);
-    }
-
     public function resolve(Model $subject, Window $window): iterable
     {
         throw_if($subject->getKey() === null, DomainException::class, 'ActivityLogSource cannot resolve entries for an unsaved subject.');
@@ -56,7 +48,7 @@ final class ActivityLogSource extends AbstractTimelineSource
             type: 'activity_log',
             event: $event,
             occurredAt: $occurredAt,
-            dedupKey: $this->dedupKeyFor($subject->getMorphClass(), (string) $subject->getKey(), $occurredAt),
+            dedupKey: $this->dedupKeyForActivity($subject->getMorphClass(), (string) $subject->getKey(), $occurredAt, (string) $activity->getKey()),
             sourcePriority: $this->priority,
             subject: $subject,
             causer: $activity->causer,

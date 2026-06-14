@@ -15,14 +15,6 @@ use Spatie\Activitylog\Models\Activity as ActivityModel;
 final class RelatedActivityLogSource extends AbstractTimelineSource
 {
     /**
-     * Get the activity model class from config or use default
-     */
-    private function getActivityModelClass(): string
-    {
-        return config('activity-log.activity_model', ActivityModel::class);
-    }
-
-    /**
      * @param  array<int, string>  $relations
      */
     public function __construct(int $priority, private readonly array $relations)
@@ -54,7 +46,7 @@ final class RelatedActivityLogSource extends AbstractTimelineSource
         }
 
         $modelClass = $this->getActivityModelClass();
-        
+
         $query = $modelClass::query()
             ->with(['causer', 'subject'])
             ->where(function (Builder $q) use ($subjectPairs): void {
