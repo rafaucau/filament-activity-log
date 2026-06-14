@@ -65,6 +65,31 @@ it('dedupKeyUsing() overrides the per-entry dedup key', function (): void {
     expect($entries)->toHaveCount(1);
 });
 
+it('keeps distinct own-activity entries that land in the same second (multi-change save)', function (): void {
+    $person = Person::factory()->create();
+    $person->update(['name' => 'First change']);
+    $person->update(['name' => 'Second change']);
+
+    // Simulate one save producing several activity rows in the same second.
+    $stamp = CarbonImmutable::parse('2026-04-17T10:00:00Z');
+    Activity::query()
+        ->where('subject_type', $person->getMorphClass())
+        ->where('subject_id', $person->id)
+        ->update(['created_at' => $stamp]);
+
+    $count = Activity::query()
+        ->where('subject_type', $person->getMorphClass())
+        ->where('subject_id', $person->id)
+        ->count();
+
+    $entries = TimelineBuilder::make($person)
+        ->fromActivityLog()
+        ->deduplicate()
+        ->get();
+
+    expect($entries)->toHaveCount($count);
+});
+
 it('deduplicate(false) skips dedup entirely', function (): void {
     $person = Person::factory()->create();
     $email = Email::factory()->for($person)->create();

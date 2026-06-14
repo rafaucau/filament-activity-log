@@ -3,8 +3,13 @@
 declare(strict_types=1);
 
 return [
-    'activity_model' => \Spatie\Activitylog\Models\Activity::class,
-    
+    // Activity model for the read (timeline) path. Leave null to inherit
+    // Spatie's `activitylog.activity_model` — the same model used for writes —
+    // so a tenant-scoped Activity subclass applies to both. Set explicitly only
+    // to override that.
+    'activity_model' => null,
+
+
     'default_per_page' => 20,
     'pagination_buffer' => 2,
     'deduplicate_by_default' => true,
