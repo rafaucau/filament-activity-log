@@ -17,7 +17,7 @@ final class ActivityLogSource extends AbstractTimelineSource
     {
         throw_if($subject->getKey() === null, DomainException::class, 'ActivityLogSource cannot resolve entries for an unsaved subject.');
 
-        $modelClass = $this->activityModelClass();
+        $modelClass = $this->getActivityModelClass();
         
         $query = $modelClass::query()
             ->with(['causer', 'subject'])

@@ -30,7 +30,7 @@ abstract class AbstractTimelineSource implements TimelineSource
      *
      * @return class-string<\Spatie\Activitylog\Contracts\Activity&\Illuminate\Database\Eloquent\Model>
      */
-    protected function activityModelClass(): string
+    protected function getActivityModelClass(): string
     {
         /** @var class-string<\Spatie\Activitylog\Contracts\Activity&\Illuminate\Database\Eloquent\Model> */
         return config('activity-log.activity_model')

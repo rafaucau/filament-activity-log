@@ -45,7 +45,7 @@ final class RelatedActivityLogSource extends AbstractTimelineSource
             return;
         }
 
-        $modelClass = $this->activityModelClass();
+        $modelClass = $this->getActivityModelClass();
 
         $query = $modelClass::query()
             ->with(['causer', 'subject'])
