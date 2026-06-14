@@ -16,7 +16,7 @@
 >
     <div class="flex justify-center pt-0.5">
         <span class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 text-gray-600 ring-1 ring-gray-200 dark:bg-white/5 dark:text-gray-300 dark:ring-white/10">
-            <x-filament::icon icon="ri-circle-line" class="h-3.5 w-3.5" />
+            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>
         </span>
     </div>
 
