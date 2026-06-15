@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-06-15
+
+### Added
+
+- Visible empty state on the timeline with a host-configurable message
+
+### Fixed
+
+- Replaced remaining Remix icons with Heroicons so the timeline renders with the bundled icon set (#24)
+- Timeline dedup no longer over-collapses distinct activities saved in the same second; the dedup key now includes the activity id
+- Empty-state card now uses `heroicon-o-clock` instead of the missing Remix `ri-history-line`, so it renders instead of showing a blank card
+- Read path resolves the Activity model from the plugin key, then Spatie's `activitylog.activity_model`, then the base model, so a tenant-scoped Activity subclass applies to reads as well as writes
+
 ## [1.1.0] - 2026-06-13
 
 ### Added
