@@ -132,7 +132,17 @@ final class ActivityLogSource extends AbstractTimelineSource
 
         $properties = [];
         foreach ($group as $activity) {
-            $properties = [...$properties, ...$this->extractProperties($activity)];
+            foreach ($this->extractProperties($activity) as $key => $value) {
+                // Repeated array-valued keys must accumulate, not overwrite: a save
+                // touching several custom fields emits one row each, all under the
+                // same `custom_field_changes` key — a plain spread would keep only
+                // the last. array_merge concatenates list payloads (e.g. those
+                // change lists) while still letting associative maps (native
+                // `attributes`/`old`) union per field key.
+                $properties[$key] = isset($properties[$key]) && is_array($properties[$key]) && is_array($value)
+                    ? array_merge($properties[$key], $value)
+                    : $value;
+            }
         }
 
         $occurredAt = CarbonImmutable::parse($base->created_at);

@@ -61,6 +61,47 @@ it('merges same-batch rows into one entry carrying both payloads and the merged 
         ->and($entry->properties['custom_field'])->toBe('value');
 });
 
+it('concatenates repeated list-valued properties across grouped rows', function (): void {
+    $person = Person::factory()->create();
+    Activity::query()->delete();
+
+    $batch = '44444444-4444-4444-4444-444444444444';
+
+    // One save touching several custom fields emits a separate row per field, each
+    // under the same `custom_field_changes` key. The merge must keep them all.
+    makeActivity($person, [
+        'event' => 'custom_field_changes',
+        'properties' => ['custom_field_changes' => [['code' => 'icp']]],
+        'batch_uuid' => $batch,
+    ]);
+    makeActivity($person, [
+        'event' => 'custom_field_changes',
+        'properties' => ['custom_field_changes' => [['code' => 'domains']]],
+        'batch_uuid' => $batch,
+    ]);
+    makeActivity($person, [
+        'event' => 'custom_field_changes',
+        'properties' => ['custom_field_changes' => [['code' => 'linkedin']]],
+        'batch_uuid' => $batch,
+    ]);
+
+    $entries = TimelineBuilder::make($person)
+        ->fromActivityLog(mergedRenderer: 'x')
+        ->get();
+
+    expect($entries)->toHaveCount(1);
+
+    $codes = array_map(
+        static fn (array $change): string => $change['code'],
+        $entries->first()->properties['custom_field_changes'],
+    );
+
+    expect($codes)->toContain('icp')
+        ->and($codes)->toContain('domains')
+        ->and($codes)->toContain('linkedin')
+        ->and($codes)->toHaveCount(3);
+});
+
 it('does not merge rows with different batch_uuids', function (): void {
     $person = Person::factory()->create();
     Activity::query()->delete();
