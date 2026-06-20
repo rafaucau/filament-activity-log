@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-06-20
+
 ### Added
 
 - Opt-in same-save merge for `fromActivityLog(mergedRenderer: ...)`: rows sharing a non-empty spatie `batch_uuid` collapse into one `TimelineEntry` whose `properties` union every grouped row's payload and whose `renderer` is set explicitly. Read-side only; requires a `batch_uuid` column on `activity_log` (host-owned)
