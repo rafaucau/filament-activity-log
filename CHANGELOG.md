@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2026-08-08
+
+No runtime code changed in this release; it is packaging and CI only.
+
+### Changed
+
+- Dist archive no longer ships development-only paths. A `.gitattributes` marks `docs/`, `tests/`, `art/`, `.github/` and `phpunit.xml.dist` as `export-ignore`, so a `composer require` install drops from ~2.5 MB (153 files) to ~123 KB (58 files) — only `src/`, `resources/`, `config/` and the package metadata now ship
+
+### Security
+
+- All GitHub Actions in the CI workflows are pinned to full commit SHAs, so a force-moved upstream tag cannot change what runs — including in the docs workflow, which holds `contents: write`
+- Added a Dependabot config (`github-actions`, `composer`, and the docs `npm` tree) with weekly grouped updates and a release cooldown, so the new SHA pins stay current
+
 ## [1.2.0] - 2026-06-20
 
 ### Added
