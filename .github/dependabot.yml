@@ -1,0 +1,56 @@
+version: 2
+
+updates:
+  # Keep workflow actions up to date. Dependabot rewrites the pinned SHA and
+  # the trailing version comment together, so pinning stays maintainable.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      github-actions:
+        patterns: ["*"]
+    labels:
+      - dependencies
+      - github-actions
+
+  - package-ecosystem: composer
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      php-dev-dependencies:
+        dependency-type: development
+        patterns: ["*"]
+    labels:
+      - dependencies
+      - php
+
+  - package-ecosystem: npm
+    directory: "/docs"
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+      semver-minor-days: 7
+      semver-patch-days: 3
+    groups:
+      docs-dependencies:
+        patterns: ["*"]
+    labels:
+      - dependencies
+      - docs
