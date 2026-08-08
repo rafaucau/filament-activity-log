@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Development-only paths, excluded from the dist archive that Composer installs.
+/.github            export-ignore
+/art                export-ignore
+/docs               export-ignore
+/tests              export-ignore
+/phpunit.xml.dist   export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
