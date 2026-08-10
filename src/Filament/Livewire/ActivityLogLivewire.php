@@ -6,6 +6,7 @@ namespace Relaticle\ActivityLog\Filament\Livewire;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -94,7 +95,12 @@ final class ActivityLogLivewire extends Component
         /** @var class-string<Model> $class */
         $class = $this->subjectClass;
 
-        return $class::query()->findOrFail($this->subjectKey);
+        return $class::query()
+            ->when(
+                in_array(SoftDeletes::class, class_uses_recursive($class)),
+                fn ($query) => $query->withTrashed()
+            )
+            ->findOrFail($this->subjectKey);
     }
 
     private function builderFor(Model $subject): TimelineBuilder
