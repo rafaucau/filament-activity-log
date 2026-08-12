@@ -6,8 +6,9 @@ use Relaticle\ActivityLog\Filament\Livewire\ActivityLogLivewire;
 use Relaticle\ActivityLog\Tests\Fixtures\Models\Person;
 
 it('renders when the subject has been soft deleted', function (): void {
-    $person = Person::factory()->create(['name' => 'Soft Deleted Person']);
+    config()->set('activitylog.include_soft_deleted_subjects', true);
 
+    $person = Person::factory()->create(['name' => 'Soft Deleted Person']);
     $person->delete();
 
     expect($person->trashed())->toBeTrue();

@@ -6,7 +6,7 @@ namespace Relaticle\ActivityLog\Filament\Livewire;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -97,8 +97,8 @@ final class ActivityLogLivewire extends Component
 
         return $class::query()
             ->when(
-                in_array(SoftDeletes::class, class_uses_recursive($class)),
-                fn ($query) => $query->withTrashed()
+                config('activitylog.include_soft_deleted_subjects'),
+                fn ($query) => $query->withoutGlobalScope(SoftDeletingScope::class)
             )
             ->findOrFail($this->subjectKey);
     }
