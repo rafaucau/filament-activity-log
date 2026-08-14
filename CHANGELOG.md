@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2] - 2026-08-14
+
+### Fixed
+
+- Timelines no longer 404 on soft-deleted records. `ActivityLogLivewire` receives a subject's class and key from Filament and re-queries it (Livewire cannot carry a model instance between requests), and that query still had the model's `SoftDeletingScope` applied — so a trashed record matched nothing, `findOrFail()` threw `ModelNotFoundException`, and the whole page died rather than the timeline degrading. The scope is now dropped when resolving the subject, which is a no-op for models without `SoftDeletes` and for records that are not trashed. Thanks [@rafaucau](https://github.com/rafaucau) for reporting and for the original fix in [#39](https://github.com/relaticle/activity-log/pull/39)
+
 ## [1.2.1] - 2026-08-08
 
 No runtime code changed in this release; it is packaging and CI only.
