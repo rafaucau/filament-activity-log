@@ -96,10 +96,7 @@ final class ActivityLogLivewire extends Component
         $class = $this->subjectClass;
 
         return $class::query()
-            ->when(
-                config('activitylog.include_soft_deleted_subjects'),
-                fn ($query) => $query->withoutGlobalScope(SoftDeletingScope::class)
-            )
+            ->withoutGlobalScope(SoftDeletingScope::class)
             ->findOrFail($this->subjectKey);
     }
 
