@@ -7,6 +7,7 @@ namespace Relaticle\ActivityLog\Tests\Fixtures\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Relaticle\ActivityLog\Concerns\InteractsWithTimeline;
 use Relaticle\ActivityLog\Contracts\HasTimeline;
 use Relaticle\ActivityLog\Tests\Fixtures\database\factories\PersonFactory;
@@ -22,6 +23,7 @@ final class Person extends Model implements HasTimeline
 
     use InteractsWithTimeline;
     use LogsActivity;
+    use SoftDeletes;
 
     protected $fillable = ['name'];
 
